@@ -1,0 +1,164 @@
+:root{
+    --width-bordo: 550px !important;
+    --height-bordo: 550px !important;
+
+    --width-container: calc(var(--width-bordo) + 150px) !important;
+    --height-container: calc(var(--height-bordo) + 125px) !important;
+}
+
+@font-face {
+    font-family: 'upheaval';
+    src: url('Font pixel/upheavtt.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'upheaval', sans-serif;
+    height: 80vh;
+    background-image: url('bg-casino.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body#no-scroll {
+    overflow: hidden;
+}
+
+header#main-header {
+    text-align: center;
+    font-size: 2.5rem;
+    align-items: center;
+}
+
+#sfondo-titolo{
+    margin: 30px auto;
+    background-color: orange; 
+    padding: 10px; 
+    border-radius:30px; 
+    border:5px solid rgb(255, 194, 81);
+    text-align: center;
+}
+
+div#bordo-main {
+    position: absolute;
+    padding: 150px;
+    background-image: url('bordo-content.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    aspect-ratio: 1/1;
+    pointer-events: none;
+    width: var(--width-bordo);
+    height: var(--height-bordo);
+}
+
+div#container-total-content{
+    display: flex;
+    justify-content: center;
+}
+
+#container-game {
+    background-color: rgb(16, 98, 0);
+    border: none;
+
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    padding: 85px 0;
+
+    font-size: 3rem;
+    
+    height: var(--height-container);
+    width: var(--width-container);
+}
+
+button.game-button {
+    padding: 0 30px;
+    font-size: 2rem;
+    border-radius: 20px;
+    background-image: url('bg-buttons.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    aspect-ratio: 1/1;
+    border: none;
+    font-family: inherit;
+
+    transform: scale(1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+button.game-button:hover {
+    filter:brightness(1.25);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#coins-container {
+    position: relative;
+    width: 0;
+    height: 0;
+}
+
+.coin {
+    position: absolute;
+    width: 28px;
+    height: 38px;
+    background-image: url("coin/coin 1.png");
+    background-size: cover;
+
+    pointer-events: none;
+    transform: scale(2);
+
+    animation: coins-spin 0.5s linear infinite;
+}
+
+@keyframes coins-spin {
+    0% { background-image: url('coin/coin 1.png');}
+    12.5% { background-image: url('coin/coin 2.png');}
+    25% { background-image: url('coin/coin 3.png');}
+    37.5% { background-image: url('coin/coin 4.png');}
+    50% { background-image: url('coin/coin 5.png');}
+    62.5% { background-image: url('coin/coin 6.png');}
+    75% { background-image: url('coin/coin 7.png');}
+    87.5% { background-image: url('coin/coin 8.png');}
+    100% { background-image: url('coin/coin 1.png');}
+}
+
+#cards-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.cards {
+    position: absolute;
+    width: 40px;
+    background-image: url("Black Jack/cards/1 Asso picche.png");
+    background-size: cover;
+    aspect-ratio: 3/4;
+
+    pointer-events: none;
+    transform: scale(0.6);
+
+    animation: cards-change 0.1s linear infinite;
+}
+
+@keyframes cards-change {
+    0% { background-image: url('Black Jack/cards/1 Asso picche.png');}
+    7.14% { background-image: url('Black Jack/cards/2 picche.png');}
+    14.28% { background-image: url('Black Jack/cards/3 picche.png');}
+    21.42% { background-image: url('Black Jack/cards/4 picche.png');}
+    28.56% { background-image: url('Black Jack/cards/5 picche.png');}
+    35.7% { background-image: url('Black Jack/cards/6 picche.png');}
+    42.84% { background-image: url('Black Jack/cards/7 picche.png');}
+    50% { background-image: url('Black Jack/cards/8 picche.png');}
+    57.14% { background-image: url('Black Jack/cards/9 picche.png');}
+    64.28% { background-image: url('Black Jack/cards/10 picche.png');}
+    71.42% { background-image: url('Black Jack/cards/11 jack picche.png');}
+    78.56% { background-image: url('Black Jack/cards/12 queen picche.png');}
+    85.7% { background-image: url('Black Jack/cards/13 king picche.png');}
+    100% { background-image: url('Black Jack/cards/1 Asso picche.png');}
+}

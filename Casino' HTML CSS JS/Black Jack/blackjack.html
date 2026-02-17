@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Blackjack</title>
+        <link rel="icon" href="">
+        <link rel="stylesheet" href="../style.css">
+        <style>
+            h2{
+                margin: 2px 0;
+            }
+
+            #blackjack-game{
+                width: inherit;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #container-game{
+                flex-direction: column;
+                padding: 60px 0;
+            }
+
+            #cards{
+                width: inherit;
+                display: flex;
+                flex-direction: row;
+                gap: 100px;
+
+                justify-content: center;
+                align-items: center;
+
+                image-rendering: pixelated;
+                background-repeat: no-repeat;
+                background: transparent;
+                margin-bottom: 50px;
+            }
+
+            #player-cards{
+                position: absolute;
+
+                width: 600px;
+                height: 404px;
+
+                margin-right: 200px;
+
+                background-color: rgba(56, 56, 56, 0.547);
+                border: solid 8px rgb(47, 47, 47);
+                border-radius: 30px;
+
+                transform: scale(0.5);
+            }
+
+            #deck{
+                width: 300px;
+                height: 404px;
+
+                margin-left: 400px;
+
+                background-image: url('cards/blue deck.png');
+                image-rendering: pixelated;
+                background-repeat: no-repeat;
+
+                border: none;
+                border-radius: 30px;
+
+                transform: scale(0.5);
+
+                transition: filter 0.15555s ease;
+            }
+
+            #deck:hover{
+                filter: brightness(1.25);
+            }
+
+            #player-action-buttons{
+                display: flex;
+                flex-direction: row;
+                gap: 250px;
+            }
+
+            .action-buttons{
+                width: 32px;
+                height: 16px;
+
+                font-family: 'upheaval';
+                font-size: 0.5rem;
+
+                border: none;
+
+                image-rendering: pixelated;
+                background-repeat: no-repeat;
+                background: transparent;
+
+                padding-bottom: 2px;
+
+                transform: scale(8);
+                transition: transform 0.3s ease;
+            }
+
+            .action-buttons:hover{
+                transform: scale(8.5);
+            }
+
+            #draw{
+                background-image: url('player-buttons/draw-button.png');
+            }
+
+            #stay{
+                background-image: url('player-buttons/stay-button.png');
+            }
+
+            #sfondo-titolo{
+                width: 500px;
+            }
+
+            /* CARTE DA GIOCO */
+            .asso{background-image: url('Black Jack/cards/1 Asso picche.png');}
+            .due { background-image: url('Black Jack/cards/2 picche.png');}
+            .tre { background-image: url('Black Jack/cards/3 picche.png');}
+            .quattro { background-image: url('Black Jack/cards/4 picche.png');}
+            .cinque { background-image: url('Black Jack/cards/5 picche.png');}
+            .sei { background-image: url('Black Jack/cards/6 picche.png');}
+            .sette { background-image: url('Black Jack/cards/7 picche.png');}
+            .otto { background-image: url('Black Jack/cards/8 picche.png');}
+            .nove { background-image: url('Black Jack/cards/9 picche.png');}
+            .dieci { background-image: url('Black Jack/cards/10 picche.png');}
+            .jack { background-image: url('Black Jack/cards/11 jack picche.png');}
+            .queen { background-image: url('Black Jack/cards/12 queen picche.png');}
+            .king { background-image: url('Black Jack/cards/13 king picche.png');}
+        </style>
+    </head>
+    <body>
+        <header id="main-header">
+            <div id="sfondo-titolo">
+                <h1>blackjack</h1>
+            </div>
+        </header>
+        <div id="container-total-content">
+            <div id="bordo-main"></div>
+            <main id="container-game">
+                <div>
+                    <h2>score: <span id="score" style="font-size:inherit;">0</span></h2>
+                    <h2>obiettivo: <span id="obiettivo" style="font-size:inherit;"></span></h2>
+                </div>
+                <div id="blackjack-game">
+                    <div id="cards">
+                        <div id="player-cards"></div>
+                        <div id="deck"></div>
+                    </div>
+                    <div id="player-action-buttons">
+                        <button id="stay" class="action-buttons">Stay</button>
+                        <button id="draw" class="action-buttons">Draw</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+    <script src="blackjackgame.js"></script>
+</html>

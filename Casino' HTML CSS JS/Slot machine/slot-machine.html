@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slot Machine</title>
+        <link rel="icon" href="../pngtree-pixel-art-golden-dollar-coin-symbol-png-image_18359703-removebg-preview.ico">
+        <link rel="stylesheet" href="../style.css">
+        <style>
+            #sfondo-titolo{
+                width: 600px;
+            }
+
+            #container-game{
+                flex-direction: column;
+                padding: 60px 0;
+            }
+
+            #slot{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: calc(var(--height-container) - 125px);
+                width: calc(var(--width-container) - 100px);
+            }
+
+            #slot-machine{
+                position: absolute;
+                height: 824px;
+                width: 640px;
+
+                background-image: url('slot-machine.png');
+                background-repeat: no-repeat;
+                background-size: cover;
+                aspect-ratio: 1/1;
+
+                transform: scale(0.6);
+            }
+
+            #leva-right{
+                position: absolute;
+                height: 717px;
+                width: 264px;
+                
+                margin-left: 400px;
+                margin-bottom: 80px;
+
+                background-image: url('leva-slot-machine.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+                
+                transform: scale(0.25);
+
+                transition: filter 0.3s ease;
+            }
+
+            #leva-right:hover{
+                filter:brightness(1.5);
+            }
+        
+            #leva-right-pulled{
+                position: absolute;
+                height: 578px;
+                width: 432px;
+
+                margin-left: 500px;
+                margin-top: 20px;
+
+                background-image: url('leva-slot-machine-pulled.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+
+                transform: scale(0.4);
+
+                transition: filter 0.3s ease;
+            }
+
+            #leva-right-pulled:hover{
+                filter: opacity(.65);
+            }
+
+            #sfondo-bianco{
+                position: absolute;
+
+                margin-bottom: 50px;
+
+                width: 300px;
+                height: 100px;
+
+                background-color: rgb(215, 215, 215);
+            }
+
+            div.risultati{
+                position: absolute;
+                
+                width: 125px;
+                height: 125px;
+
+                margin-bottom: 50px;
+
+                background-repeat: no-repeat;
+                background-size: cover;
+                aspect-ratio: 1/1;
+            }
+
+            #first-ris{
+                margin-right: 160px;
+            }
+
+            #third-ris{
+                margin-left: 160px;
+            }
+
+            .uva{
+                background-image: url('ris-slot/uva.png');
+                transform: scale(0.6);
+            }
+
+            .banana{
+                background-image: url('ris-slot/banana.png');
+                transform: scale(0.6);
+            }
+
+            .ciliegia{
+                background-image: url('ris-slot/ciliegia.png');
+                transform: scale(0.7);
+            }
+
+            .sette{
+                background-image: url('ris-slot/7.png');
+                transform: scale(1.2);
+            }
+
+            .ris-finale{
+                animation: lampeggio-ris 0.9s linear infinite;
+            }
+
+            @keyframes lampeggio-ris {
+                0% {
+                    filter: opacity(1) brightness(1);
+                }
+
+                50% {
+                    filter: opacity(1.5) brightness(1.5);
+                }
+
+                100% {
+                    filter: opacity(1) brightness(1);
+                }
+            }
+
+            button.slot-machine-btn-group{
+                position: absolute;
+                margin-left: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <button class="slot-machine-btn-group game-button">Indietro</button>
+        <header id="main-header">
+            <div id="sfondo-titolo">
+                <h1>Slot Machine</h1>
+            </div>
+        </header>
+        <div id="container-total-content">
+            <div id="bordo-main"></div>
+            <main id="container-game">
+                <h2>score: <span id="score" style="font-size:inherit;">0</span></h2>
+                <div id="slot">
+                    <div id="sfondo-bianco"></div>
+                    <div id="first-ris" class="risultati"></div>
+                    <div id="second-ris" class="risultati"></div>
+                    <div id="third-ris" class="risultati"></div>
+                    <div id="slot-machine"></div>
+                    <div id="leva-right"></div>
+                </div>
+            </main>
+        </div>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const leva = document.getElementById("leva-right");
+        
+        const slotRis = ["sette", "uva", "banana", "ciliegia"];
+        const slotsIds = [
+            document.getElementById("first-ris"),
+            document.getElementById("second-ris"),
+            document.getElementById("third-ris")
+        ];
+
+        let isSpinning = false; // <-- BLOCCA CLICK MULTIPLI
+
+        leva.addEventListener("click", () => {
+
+            if (isSpinning) return;   // <-- IGNORA CLICK DURANTE ANIMAZIONE
+            isSpinning = true;        // <-- BLOCCA FINO A FINE GIRO
+
+            // --- ANIMAZIONE LEVA ---
+            leva.id = "leva-right-pulled";
+            setTimeout(() => {
+                leva.id = "leva-right";
+            }, 3000);
+
+            // --- ANIMAZIONE SLOT ---
+            let temptime = 50;
+            let ultimoTempo = 0;
+
+            for (let i = 0; i < 20; i++) {
+                temptime += temptime * 0.25;
+                ultimoTempo = temptime;
+
+                setTimeout(() => {
+                    slotsIds.forEach(slot => {
+                        slot.className = "risultati";
+                        const randomClass = slotRis[Math.floor(Math.random() * slotRis.length)];
+                        slot.classList.add(randomClass);
+                    });
+                }, temptime);
+            }
+
+            // --- SOLO DOPO L’ULTIMO GIRO ---
+            setTimeout(() => {
+                slotsIds.forEach(slot => {
+                    slot.classList.add("ris-finale");
+                });
+
+                // --- CALCOLO RISULTATO ---
+                const simboliFinali = slotsIds.map(s => {
+                    if (s.classList.contains("sette")) return "sette";
+                    if (s.classList.contains("uva")) return "uva";
+                    if (s.classList.contains("banana")) return "banana";
+                    if (s.classList.contains("ciliegia")) return "ciliegia";
+                });
+
+                const tuttiUguali = simboliFinali.every(s => s === simboliFinali[0]);
+                const nonSette = simboliFinali[0] !== "sette";
+                const tuttiUgualiNot7 = tuttiUguali && nonSette;
+
+                const tuttiUguali7 =
+                    slotsIds.every(s => s.classList.contains("sette")) &&
+                    slotsIds.every(s => s.classList.contains("ris-finale"));
+
+                const score = document.getElementById("score");
+
+                if (tuttiUgualiNot7) {
+                    score.textContent = String(parseInt(score.textContent) + 1000);
+                } else if (tuttiUguali7) {
+                    score.textContent = String(parseInt(score.textContent) + 77777);
+                }
+
+                // --- ORA LA LEVA PUÒ ESSERE RICLICCATA ---
+                isSpinning = false;
+
+            }, ultimoTempo + 50);
+        });
+    });
+    </script>
+    <script src="../buttonanimationCoins.js"></script>
+</html>
