@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blackjack</title>
-        <link rel="icon" href="">
+        <link rel="icon" href="../pngtree-pixel-art-golden-dollar-coin-symbol-png-image_18359703-removebg-preview.ico">
         <link rel="stylesheet" href="../style.css">
         <style>
             h2{
@@ -16,18 +16,22 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                gap: 30px;
             }
 
             #container-game{
                 flex-direction: column;
-                padding: 60px 0;
+                padding-top: 60px;
+                gap: 20px;
             }
 
             #cards{
+                height: 75%;
                 width: inherit;
                 display: flex;
                 flex-direction: row;
                 gap: 100px;
+                margin: 20px 0;
 
                 justify-content: center;
                 align-items: center;
@@ -35,14 +39,14 @@
                 image-rendering: pixelated;
                 background-repeat: no-repeat;
                 background: transparent;
-                margin-bottom: 50px;
             }
 
             #player-cards{
                 position: absolute;
 
                 width: 600px;
-                height: 404px;
+
+                aspect-ratio: 600/404;
 
                 margin-right: 200px;
 
@@ -53,20 +57,23 @@
                 transform: scale(0.5);
             }
 
-            #deck{
-                width: 300px;
-                height: 404px;
+            .deckConsumato{
+                visibility: hidden;
+            }
 
-                margin-left: 400px;
+            #deck{
+                width: 150px;
+                aspect-ratio: 75 / 101;
+
+                margin-left: 380px;
 
                 background-image: url('cards/blue deck.png');
                 image-rendering: pixelated;
                 background-repeat: no-repeat;
+                background-size: cover;
 
                 border: none;
-                border-radius: 30px;
-
-                transform: scale(0.5);
+                border-radius: 10px;
 
                 transition: filter 0.15555s ease;
             }
@@ -76,36 +83,32 @@
             }
 
             #player-action-buttons{
-                display: flex;
-                flex-direction: row;
-                gap: 250px;
+                margin-top: 20px;
             }
 
             .action-buttons{
-                width: 32px;
-                height: 16px;
+                width: 250px;
+
+                aspect-ratio: 2/1;
 
                 font-family: 'upheaval';
-                font-size: 0.5rem;
+                font-size: 3rem;
 
                 border: none;
 
-                image-rendering: pixelated;
-                background-repeat: no-repeat;
                 background: transparent;
+                image-rendering: pixelated;
+                background-size: cover;
+                background-repeat: no-repeat;
+                
 
                 padding-bottom: 2px;
 
-                transform: scale(8);
                 transition: transform 0.3s ease;
             }
 
             .action-buttons:hover{
-                transform: scale(8.5);
-            }
-
-            #draw{
-                background-image: url('player-buttons/draw-button.png');
+                transform: scale(1.25);
             }
 
             #stay{
@@ -116,23 +119,82 @@
                 width: 500px;
             }
 
+            button.slot-machine-btn-group{
+                position: absolute;
+                margin-left: 50px;
+            }
+
             /* CARTE DA GIOCO */
-            .asso{background-image: url('Black Jack/cards/1 Asso picche.png');}
-            .due { background-image: url('Black Jack/cards/2 picche.png');}
-            .tre { background-image: url('Black Jack/cards/3 picche.png');}
-            .quattro { background-image: url('Black Jack/cards/4 picche.png');}
-            .cinque { background-image: url('Black Jack/cards/5 picche.png');}
-            .sei { background-image: url('Black Jack/cards/6 picche.png');}
-            .sette { background-image: url('Black Jack/cards/7 picche.png');}
-            .otto { background-image: url('Black Jack/cards/8 picche.png');}
-            .nove { background-image: url('Black Jack/cards/9 picche.png');}
-            .dieci { background-image: url('Black Jack/cards/10 picche.png');}
-            .jack { background-image: url('Black Jack/cards/11 jack picche.png');}
-            .queen { background-image: url('Black Jack/cards/12 queen picche.png');}
-            .king { background-image: url('Black Jack/cards/13 king picche.png');}
+            .carta{
+                position: absolute;
+                transition: transform 0.4s ease-out;
+                height: inherit;
+                background-repeat: no-repeat;
+                background-size: cover;
+                aspect-ratio: 142 / 192;
+            }
+            .asso    { background-image: url('cards/1 Asso picche.png'); }
+            .due     { background-image: url('cards/2 picche.png'); }
+            .tre     { background-image: url('cards/3 picche.png'); }
+            .quattro { background-image: url('cards/4 picche.png'); }
+            .cinque  { background-image: url('cards/5 picche.png'); }
+            .sei     { background-image: url('cards/6 picche.png'); }
+            .sette   { background-image: url('cards/7 picche.png'); }
+            .otto    { background-image: url('cards/8 picche.png'); }
+            .nove    { background-image: url('cards/9 picche.png'); }
+            .dieci   { background-image: url('cards/10 picche.png'); }
+            .jack    { background-image: url('cards/11 jack picche.png'); }
+            .queen   { background-image: url('cards/12 queen picche.png'); }
+            .king    { background-image: url('cards/13 king picche.png'); }
+
+            @media (max-width:650px){
+                #blackjack-game{
+                    gap: 10px;
+                }
+
+                #container-game{
+                    padding-top: 75px;
+                    gap: 10px;
+                }
+
+                #container-game div{
+                    font-size: 1.75rem;
+                }
+
+                #cards{
+                    gap: 50px;
+                    margin: 10px 0;
+                }
+
+                #player-cards{
+                    margin-left: 50px;
+                    width: 300px;
+                    height: 202px;
+                }
+
+                #deck{
+                    width: 75px;
+                    margin-left: 175px;
+                }
+
+                #player-action-buttons{
+                    margin-top: 10px;
+                }
+
+                .action-buttons{
+                    width: 90px;
+                    font-size: 1rem;
+                }
+
+                #sfondo-titolo{
+                    width: 400px;
+                }
+            }
+
         </style>
     </head>
     <body>
+        <button id="indietro" class="slot-machine-btn-group game-button">Indietro</button>
         <header id="main-header">
             <div id="sfondo-titolo">
                 <h1>blackjack</h1>
@@ -141,9 +203,10 @@
         <div id="container-total-content">
             <div id="bordo-main"></div>
             <main id="container-game">
-                <div>
-                    <h2>score: <span id="score" style="font-size:inherit;">0</span></h2>
-                    <h2>obiettivo: <span id="obiettivo" style="font-size:inherit;"></span></h2>
+                <div style="margin-bottom: 20px;">
+                    <h2 style="font-size:inherit;">score: <span id="score" style="font-size:inherit;">0</span></h2>
+                    <h2 style="font-size:inherit;">obiettivo: <span id="obiettivo" style="font-size:inherit;">0</span></h2>
+                    <h2 style="font-size:inherit;">mano: <span id="valoreMano" style="font-size:inherit;">0</span></h2>
                 </div>
                 <div id="blackjack-game">
                     <div id="cards">
@@ -152,7 +215,6 @@
                     </div>
                     <div id="player-action-buttons">
                         <button id="stay" class="action-buttons">Stay</button>
-                        <button id="draw" class="action-buttons">Draw</button>
                     </div>
                 </div>
             </main>

@@ -19,10 +19,8 @@ body {
     background-image: url('bg-casino.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-}
-
-body#no-scroll {
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 header#main-header {
@@ -73,7 +71,6 @@ div#container-total-content{
 }
 
 button.game-button {
-    padding: 0 30px;
     font-size: 2rem;
     border-radius: 20px;
     background-image: url('bg-buttons.png');
@@ -161,4 +158,28 @@ button.game-button:hover {
     78.56% { background-image: url('Black Jack/cards/12 queen picche.png');}
     85.7% { background-image: url('Black Jack/cards/13 king picche.png');}
     100% { background-image: url('Black Jack/cards/1 Asso picche.png');}
+}
+
+@media (max-width:650px){
+    :root{
+        --width-bordo: 150px !important;
+        --height-bordo: 150px !important;
+
+        --width-container: calc(var(--width-bordo) + 250px) !important;
+        --height-container: calc(var(--height-bordo) + 125px) !important;
+    }
+
+    header#main-header {
+        font-size: 1.5rem;
+    }
+
+    button#indietro{
+        display: none;
+    }
+}
+
+@media (max-width:850px){
+    body {
+        background-size: auto;
+    }
 }

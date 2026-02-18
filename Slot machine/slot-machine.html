@@ -27,20 +27,18 @@
 
             #slot-machine{
                 position: absolute;
-                height: 824px;
                 width: 640px;
 
                 background-image: url('slot-machine.png');
                 background-repeat: no-repeat;
                 background-size: cover;
-                aspect-ratio: 1/1;
+                aspect-ratio: 80/103;
 
                 transform: scale(0.6);
             }
 
             #leva-right{
                 position: absolute;
-                height: 717px;
                 width: 264px;
                 
                 margin-left: 400px;
@@ -49,6 +47,7 @@
                 background-image: url('leva-slot-machine.png');
                 background-repeat: no-repeat;
                 background-size: contain;
+                aspect-ratio: 88/239;
                 
                 transform: scale(0.25);
 
@@ -61,7 +60,6 @@
         
             #leva-right-pulled{
                 position: absolute;
-                height: 578px;
                 width: 432px;
 
                 margin-left: 500px;
@@ -70,6 +68,7 @@
                 background-image: url('leva-slot-machine-pulled.png');
                 background-repeat: no-repeat;
                 background-size: contain;
+                aspect-ratio: 216/289;
 
                 transform: scale(0.4);
 
@@ -86,7 +85,8 @@
                 margin-bottom: 50px;
 
                 width: 300px;
-                height: 100px;
+
+                aspect-ratio: 3/1;
 
                 background-color: rgb(215, 215, 215);
             }
@@ -95,7 +95,6 @@
                 position: absolute;
                 
                 width: 125px;
-                height: 125px;
 
                 margin-bottom: 50px;
 
@@ -154,10 +153,67 @@
                 position: absolute;
                 margin-left: 50px;
             }
+
+            @media (max-width:650px){
+                :root{
+                    --height-container: calc(var(--height-bordo) + 135px) !important;
+                }
+
+                #sfondo-titolo{
+                    width: 400px;
+                }
+
+                #slot-machine{
+                    width: 300px;
+                }
+
+                #sfondo-bianco{
+                    width: 130px;
+                    margin-bottom: 22px;
+                }
+
+                #container-game{
+                    font-size: 1.5rem !important;
+                }
+
+                #container-game h2{
+                    margin-bottom: 100px !important;
+                }
+
+                #slot{
+                    margin-bottom: 40px;
+                }
+
+                #leva-right{
+                    width: 90px;
+                    margin-left: 180px;
+                    margin-bottom: 40px;
+                }
+
+                #leva-right-pulled{
+                    width: 150px;
+
+                    margin-left: 215px;
+                    margin-top: 10px;
+                }
+
+                div.risultati{
+                    width: 50px;
+                    margin-bottom: 20px;
+                }
+
+                #first-ris{
+                    margin-right: 75px;
+                }
+
+                #third-ris{
+                    margin-left: 75px;
+                }
+            }
         </style>
     </head>
     <body>
-        <button class="slot-machine-btn-group game-button">Indietro</button>
+        <button id="indietro" class="slot-machine-btn-group game-button">Indietro</button>
         <header id="main-header">
             <div id="sfondo-titolo">
                 <h1>Slot Machine</h1>
@@ -166,7 +222,7 @@
         <div id="container-total-content">
             <div id="bordo-main"></div>
             <main id="container-game">
-                <h2>score: <span id="score" style="font-size:inherit;">0</span></h2>
+                <h2>score: <span id="score">0</span></h2>
                 <div id="slot">
                     <div id="sfondo-bianco"></div>
                     <div id="first-ris" class="risultati"></div>
@@ -178,83 +234,6 @@
             </main>
         </div>
     </body>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-        const leva = document.getElementById("leva-right");
-        
-        const slotRis = ["sette", "uva", "banana", "ciliegia"];
-        const slotsIds = [
-            document.getElementById("first-ris"),
-            document.getElementById("second-ris"),
-            document.getElementById("third-ris")
-        ];
-
-        let isSpinning = false; // <-- BLOCCA CLICK MULTIPLI
-
-        leva.addEventListener("click", () => {
-
-            if (isSpinning) return;   // <-- IGNORA CLICK DURANTE ANIMAZIONE
-            isSpinning = true;        // <-- BLOCCA FINO A FINE GIRO
-
-            // --- ANIMAZIONE LEVA ---
-            leva.id = "leva-right-pulled";
-            setTimeout(() => {
-                leva.id = "leva-right";
-            }, 3000);
-
-            // --- ANIMAZIONE SLOT ---
-            let temptime = 50;
-            let ultimoTempo = 0;
-
-            for (let i = 0; i < 20; i++) {
-                temptime += temptime * 0.25;
-                ultimoTempo = temptime;
-
-                setTimeout(() => {
-                    slotsIds.forEach(slot => {
-                        slot.className = "risultati";
-                        const randomClass = slotRis[Math.floor(Math.random() * slotRis.length)];
-                        slot.classList.add(randomClass);
-                    });
-                }, temptime);
-            }
-
-            // --- SOLO DOPO L’ULTIMO GIRO ---
-            setTimeout(() => {
-                slotsIds.forEach(slot => {
-                    slot.classList.add("ris-finale");
-                });
-
-                // --- CALCOLO RISULTATO ---
-                const simboliFinali = slotsIds.map(s => {
-                    if (s.classList.contains("sette")) return "sette";
-                    if (s.classList.contains("uva")) return "uva";
-                    if (s.classList.contains("banana")) return "banana";
-                    if (s.classList.contains("ciliegia")) return "ciliegia";
-                });
-
-                const tuttiUguali = simboliFinali.every(s => s === simboliFinali[0]);
-                const nonSette = simboliFinali[0] !== "sette";
-                const tuttiUgualiNot7 = tuttiUguali && nonSette;
-
-                const tuttiUguali7 =
-                    slotsIds.every(s => s.classList.contains("sette")) &&
-                    slotsIds.every(s => s.classList.contains("ris-finale"));
-
-                const score = document.getElementById("score");
-
-                if (tuttiUgualiNot7) {
-                    score.textContent = String(parseInt(score.textContent) + 1000);
-                } else if (tuttiUguali7) {
-                    score.textContent = String(parseInt(score.textContent) + 77777);
-                }
-
-                // --- ORA LA LEVA PUÒ ESSERE RICLICCATA ---
-                isSpinning = false;
-
-            }, ultimoTempo + 50);
-        });
-    });
-    </script>
+    <script src="slot-machine.js"></script>
     <script src="../buttonanimationCoins.js"></script>
 </html>

@@ -23,18 +23,35 @@
                 flex-direction: column;
                 gap: 100px;
             }
+
+            @media (max-width:650px){
+                :root{
+                    --width-gamebutton: calc(var(--width-container) - 250px)
+                }
+
+                #sfondo-titolo{
+                    width: 300px;
+                }
+
+                button.game-button{
+                    font-size: 1.5rem;
+                }
+
+                #container-game{
+                    flex-direction: column;
+                    gap: 30px;
+                }
+            }
         </style>
     </head>
-    <body id="no-scroll">
+    <body>
         <header id="main-header">
             <div id="sfondo-titolo">
                 <h1>CASINO'</h1>
             </div>
         </header>
         <div id="container-total-content">
-            <div id="bordo-main">
-            
-            </div>
+            <div id="bordo-main"></div>
             <main id="container-game">
                 <button class="slot-machine-btn-group game-button" id="btn-slot-machine">Slot Machine</button>
                 <button class="blackjack-btn-group game-button" id="btn-blackjack">Black jack</button>
